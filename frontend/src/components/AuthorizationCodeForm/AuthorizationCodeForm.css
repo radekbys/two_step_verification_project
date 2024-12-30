@@ -1,0 +1,44 @@
+.AuthorizationCodeForm {
+  display: flex;
+  width: 24rem;
+  height: 24rem;
+  background-color: rgb(72, 26, 116);
+  border-radius: 4rem;
+  flex-direction: column;
+  border-width: 0.1rem;
+  border-color: blueviolet;
+  border-style: solid;
+  margin: auto;
+  text-align: center;
+}
+
+.AuthorizationCodeForm div {
+  margin-left: 2rem;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.AuthorizationCodeForm input {
+  font-size: 2rem;
+  height: 3rem;
+}
+
+.AuthorizationCodeForm label {
+  font-size: 2rem;
+}
+
+.AuthorizationCodeForm p {
+  display: block;
+  font-size: 1.3rem;
+  margin-top: 10%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+@media (width <= 24rem) {
+  .AuthorizationCodeForm {
+    width: 90vw;
+    margin: auto;
+  }
+}

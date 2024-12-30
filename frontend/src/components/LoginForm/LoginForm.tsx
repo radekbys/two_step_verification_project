@@ -1,8 +1,12 @@
 import './LoginForm.css'
+import { useNavigate } from 'react-router-dom'
 
 export default function LoginForm () {
+  const navigate = useNavigate()
+
   const submitLoginForm = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
+    navigate('/checkAuthorization')
   }
 
   return (
