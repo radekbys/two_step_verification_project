@@ -1,0 +1,11 @@
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: rgb(1, 25, 44);
+  color: blanchedalmond;
+  justify-content: center;
+}
