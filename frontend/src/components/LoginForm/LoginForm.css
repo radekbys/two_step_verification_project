@@ -43,27 +43,6 @@
   background-color: blueviolet;
 }
 
-.LoginForm button {
-  width: 10rem;
-  font-size: 1.8rem;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 5%;
-  border-radius: 0.5rem;
-  border: solid 0.2rem rgb(12, 1, 29);
-  color: blanchedalmond;
-  background-color: rgb(0, 100, 100);
-}
-
-.LoginForm button:hover {
-  background-color: rgb(20, 120, 120);
-}
-
-.LoginForm button:active {
-  box-shadow: 0.02rem 0.02rem 0.4rem black inset;
-  background-color: rgb(20, 120, 120);
-}
-
 @media (width <= 24rem) {
   .LoginForm {
     width: 90vw;

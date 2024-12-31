@@ -47,10 +47,3 @@ form button:active {
   box-shadow: 0.02rem 0.02rem 0.4rem black inset;
   background-color: rgb(20, 120, 120);
 }
-
-@media (width <= 24rem) {
-  form {
-    width: 90vw;
-    margin: auto;
-  }
-}
