@@ -5,7 +5,7 @@ interface DbObject {
   users: User[]
 }
 
-export async function addUser (user: User) {
+async function readDatabase (): Promise<DbObject> {
   let db: DbObject
   try {
     db = JSON.parse(await readFile('./src/mockDatabase/mockDB.json', 'utf-8'))
@@ -15,8 +15,7 @@ export async function addUser (user: User) {
         users: []
       }
     } else {
-      console.log('Cannot open db file')
-      return
+      throw new Error('Cannot open db file')
     }
   }
 
@@ -30,18 +29,10 @@ export async function addUser (user: User) {
       users: []
     }
   }
+  return db
+}
 
-  if (
-    db.users.filter((user2: User) => {
-      user2.email === user.email
-    }).length !== 0
-  ) {
-    console.log('User with this email already exists')
-    return
-  }
-
-  db.users.push(user)
-
+async function saveDatabase (db: DbObject) {
   try {
     await writeFile(
       './src/mockDatabase/mockDB.json',
@@ -49,7 +40,46 @@ export async function addUser (user: User) {
       'utf-8'
     )
   } catch (e) {
-    console.log('Cannot write to the db file')
-    return
+    throw new Error('Cannot write to the db file')
   }
+}
+
+export async function addUser (user: User) {
+  try {
+    const db: DbObject = await readDatabase()
+
+    const existingUser = db.users.find(
+      (user2: User) => user2.email === user.email
+    )
+    if (existingUser) {
+      throw new Error('User with this email already exists')
+    }
+
+    db.users.push(user)
+
+    await saveDatabase(db)
+    console.log('User added successfully')
+  } catch (e) {
+    console.error('Error:', e.message)
+    throw e
+  }
+}
+
+export async function findUser (email: string): Promise<User> {
+  let db: DbObject
+  try {
+    db = await readDatabase()
+  } catch (e) {
+    console.error('Error:', e.message)
+    throw e
+  }
+  const userArray: User[] = db.users.filter(item => {
+    return item.email === email
+  })
+
+  if (userArray.length === 0) {
+    throw new Error('no user with this email address')
+  }
+
+  return userArray[0]
 }
