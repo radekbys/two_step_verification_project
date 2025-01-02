@@ -3,13 +3,11 @@ import bcrypt from 'bcrypt'
 export interface RawUser {
   email: string
   hash: string
-  salt: string
 }
 
 export class User implements RawUser {
   email: string
   hash: string
-  salt: string
 
   private constructor () {}
 
@@ -20,8 +18,8 @@ export class User implements RawUser {
     try {
       const user = new User()
       user.email = email
-      user.salt = await bcrypt.genSalt(10)
-      user.hash = await bcrypt.hash(password, user.salt)
+      const salt = await bcrypt.genSalt(10)
+      user.hash = await bcrypt.hash(password, salt)
       return user
     } catch (e) {
       throw new Error('couldnt create a new user')
@@ -32,7 +30,6 @@ export class User implements RawUser {
     const user = new User()
     user.email = rawUser.email
     user.hash = rawUser.hash
-    user.salt = rawUser.salt
     return user
   }
 

@@ -11,8 +11,8 @@ class User {
         try {
             const user = new User();
             user.email = email;
-            user.salt = await bcrypt_1.default.genSalt(10);
-            user.hash = await bcrypt_1.default.hash(password, user.salt);
+            const salt = await bcrypt_1.default.genSalt(10);
+            user.hash = await bcrypt_1.default.hash(password, salt);
             return user;
         }
         catch (e) {
@@ -23,7 +23,6 @@ class User {
         const user = new User();
         user.email = rawUser.email;
         user.hash = rawUser.hash;
-        user.salt = rawUser.salt;
         return user;
     }
     async isSamePassword(password) {
