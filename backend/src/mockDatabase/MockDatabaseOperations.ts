@@ -82,3 +82,17 @@ export async function findUser (email: string): Promise<User> {
 
   return User.fromRawUser(userArray[0])
 }
+
+export async function updateUser (user: User): Promise<void> {
+  try {
+    const db: DbObject = await readDatabase()
+    const index = db.users.findIndex(item => item.email === user.email)
+    if (index === -1) {
+      throw new Error('no user with this email address')
+    }
+    db.users[index] = user
+    await saveDatabase(db)
+  } catch (e) {
+    throw new Error("couldn't update user")
+  }
+}

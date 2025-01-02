@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.addUser = addUser;
 exports.findUser = findUser;
+exports.updateUser = updateUser;
 const promises_1 = require("fs/promises");
 const User_1 = require("../User/User");
 async function readDatabase() {
@@ -70,5 +71,19 @@ async function findUser(email) {
         throw new Error('no user with this email address');
     }
     return User_1.User.fromRawUser(userArray[0]);
+}
+async function updateUser(user) {
+    try {
+        const db = await readDatabase();
+        const index = db.users.findIndex(item => item.email === user.email);
+        if (index === -1) {
+            throw new Error('no user with this email address');
+        }
+        db.users[index] = user;
+        await saveDatabase(db);
+    }
+    catch (e) {
+        throw new Error("couldn't update user");
+    }
 }
 //# sourceMappingURL=MockDatabaseOperations.js.map
