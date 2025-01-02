@@ -1,8 +1,8 @@
 import { readFile, writeFile } from 'fs/promises'
-import User from '../User/User'
+import { User, RawUser } from '../User/User'
 
 interface DbObject {
-  users: User[]
+  users: RawUser[]
 }
 
 async function readDatabase (): Promise<DbObject> {
@@ -44,12 +44,12 @@ async function saveDatabase (db: DbObject) {
   }
 }
 
-export async function addUser (user: User) {
+export async function addUser (user: RawUser) {
   try {
     const db: DbObject = await readDatabase()
 
     const existingUser = db.users.find(
-      (user2: User) => user2.email === user.email
+      (user2: RawUser) => user2.email === user.email
     )
     if (existingUser) {
       throw new Error('User with this email already exists')
@@ -58,7 +58,6 @@ export async function addUser (user: User) {
     db.users.push(user)
 
     await saveDatabase(db)
-    console.log('User added successfully')
   } catch (e) {
     console.error('Error:', e.message)
     throw e
@@ -73,7 +72,7 @@ export async function findUser (email: string): Promise<User> {
     console.error('Error:', e.message)
     throw e
   }
-  const userArray: User[] = db.users.filter(item => {
+  const userArray: RawUser[] = db.users.filter(item => {
     return item.email === email
   })
 
@@ -81,5 +80,5 @@ export async function findUser (email: string): Promise<User> {
     throw new Error('no user with this email address')
   }
 
-  return userArray[0]
+  return User.fromRawUser(userArray[0])
 }
