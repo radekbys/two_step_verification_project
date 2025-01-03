@@ -8,7 +8,7 @@ interface DbObject {
 async function readDatabase (): Promise<DbObject> {
   let db: DbObject
   try {
-    db = JSON.parse(await readFile('./src/mockDatabase/mockDB.json', 'utf-8'))
+    db = JSON.parse(await readFile('./mockDB.json', 'utf-8'))
   } catch (e) {
     if (e.code === 'ENOENT') {
       db = {

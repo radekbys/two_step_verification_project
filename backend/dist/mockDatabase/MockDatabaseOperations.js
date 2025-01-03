@@ -8,7 +8,7 @@ const User_1 = require("../User/User");
 async function readDatabase() {
     let db;
     try {
-        db = JSON.parse(await (0, promises_1.readFile)('./src/mockDatabase/mockDB.json', 'utf-8'));
+        db = JSON.parse(await (0, promises_1.readFile)('./mockDB.json', 'utf-8'));
     }
     catch (e) {
         if (e.code === 'ENOENT') {
@@ -34,7 +34,7 @@ async function readDatabase() {
 }
 async function saveDatabase(db) {
     try {
-        await (0, promises_1.writeFile)('./src/mockDatabase/mockDB.json', JSON.stringify(db, null, 2), 'utf-8');
+        await (0, promises_1.writeFile)('./mockDB.json', JSON.stringify(db, null, 2), 'utf-8');
     }
     catch (e) {
         throw new Error('Cannot write to the db file');

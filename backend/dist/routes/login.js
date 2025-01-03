@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const MockDatabaseOperations_1 = require("../mockDatabase/MockDatabaseOperations");
 const crypto_1 = require("crypto");
+const MailSender_1 = __importDefault(require("../MailSender/MailSender"));
 const router = express_1.default.Router();
 router.route('/firstStep').post(async (req, res) => {
     if (!req.body.email || !req.body.password) {
@@ -35,10 +36,19 @@ router.route('/firstStep').post(async (req, res) => {
         res.status(500).send({ message: "Could't assign verification code" });
         return;
     }
+    try {
+        const sender = new MailSender_1.default();
+        await sender.sendMail(user.email, verificationCode);
+    }
+    catch (e) {
+        console.error(e.message);
+        res.status(500).send({
+            message: "Verification code couldn't be send"
+        });
+        return;
+    }
     res.status(200).send({
-        message: 'User OK',
-        //remove line below
-        verificationCode: verificationCode
+        message: 'User OK'
     });
     return;
 });

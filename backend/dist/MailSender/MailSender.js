@@ -6,11 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const nodemailer_1 = __importDefault(require("nodemailer"));
 class MailSender {
     constructor() {
-        this.mailOptions = {
-            to: 'rebusik67@gmail.com',
-            subject: 'Sending Email using Node.js',
-            text: 'That was easy!'
-        };
         this.transporter = nodemailer_1.default.createTransport({
             host: 'smtp.gmail.com',
             port: 465,
@@ -21,14 +16,14 @@ class MailSender {
             }
         });
     }
-    async sendMail() {
-        await this.transporter.sendMail(this.mailOptions);
+    sendMail(targetEmail, verCode) {
+        const mailOptions = {
+            to: targetEmail,
+            subject: 'Verification Code',
+            text: verCode
+        };
+        this.transporter.sendMail(mailOptions);
     }
 }
 exports.default = MailSender;
-;
-(async () => {
-    const mailer = new MailSender();
-    await mailer.sendMail();
-})();
 //# sourceMappingURL=MailSender.js.map

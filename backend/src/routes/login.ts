@@ -3,6 +3,7 @@ import { Request, Response } from 'express'
 import { findUser, updateUser } from '../mockDatabase/MockDatabaseOperations'
 import { User } from '../User/User'
 import { randomInt } from 'crypto'
+import MailSender from '../MailSender/MailSender'
 
 const router = express.Router()
 
@@ -37,10 +38,19 @@ router.route('/firstStep').post(async (req: Request, res: Response) => {
     return
   }
 
+  try {
+    const sender = new MailSender()
+    await sender.sendMail(user.email, verificationCode)
+  } catch (e) {
+    console.error(e.message)
+    res.status(500).send({
+      message: "Verification code couldn't be send"
+    })
+    return
+  }
+
   res.status(200).send({
-    message: 'User OK',
-    //remove line below
-    verificationCode: verificationCode
+    message: 'User OK'
   })
   return
 })
