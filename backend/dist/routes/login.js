@@ -25,8 +25,7 @@ router.route('/firstStep').post(async (req, res) => {
         res.status(403).send({ message: 'Incorrect email or password' });
         return;
     }
-    // modify here
-    const verificationCode = String((0, crypto_1.randomInt)(10000));
+    const verificationCode = String((0, crypto_1.randomInt)(1000, 10000));
     try {
         await user.addVerCodeHash(verificationCode);
         await (0, MockDatabaseOperations_1.updateUser)(user);

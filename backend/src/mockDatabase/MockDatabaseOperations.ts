@@ -34,11 +34,7 @@ async function readDatabase (): Promise<DbObject> {
 
 async function saveDatabase (db: DbObject) {
   try {
-    await writeFile(
-      './src/mockDatabase/mockDB.json',
-      JSON.stringify(db, null, 2),
-      'utf-8'
-    )
+    await writeFile('./mockDB.json', JSON.stringify(db, null, 2), 'utf-8')
   } catch (e) {
     throw new Error('Cannot write to the db file')
   }

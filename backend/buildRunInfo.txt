@@ -1,0 +1,6 @@
+npm run build - to build typescript project
+node --env-file .env  './dist/index.js' - to run
+
+in .env:
+GMAIL='emailYouSendFrom@gmail.com'
+APPLICATION_PASSWORD='application password generated for the gmail account'

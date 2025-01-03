@@ -26,7 +26,6 @@ router.route('/firstStep').post(async (req: Request, res: Response) => {
     return
   }
 
-  // modify here
   const verificationCode: string = String(randomInt(1000, 10000))
 
   try {
