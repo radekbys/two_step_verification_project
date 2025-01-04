@@ -1,6 +1,6 @@
 # two_step_verification_project
 
-A simple React.js, Express.js in which I implemented two step verification
+A simple React.js, Express.js app in which I implemented two step verification
 
 To run:
 
