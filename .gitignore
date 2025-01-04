@@ -1,2 +1,4 @@
 node_modules/
-backend/src/mockDatabase/mockDB.json
+mockDB.json
+.env
+dist/
