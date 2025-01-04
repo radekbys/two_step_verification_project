@@ -2,10 +2,12 @@ import express from 'express'
 import { Request, Response } from 'express'
 import loginRouter from './routes/login'
 import userRouter from './routes/user'
+import cors from 'cors'
 
 const app = express()
 
 app.use(express.json())
+app.use(cors())
 
 app.use('/login', loginRouter)
 app.use('/user', userRouter)
